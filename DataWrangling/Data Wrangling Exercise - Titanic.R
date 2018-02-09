@@ -71,8 +71,8 @@ unique(tdf$cabin)
 #Create dummy variable
 tdf <- mutate(tdf,
       has_cabin_number = case_when(
-      cabin != NA ~ "0",
-      TRUE ~  "1"))
+      !is.na(cabin) ~ 0,
+      TRUE ~  1))
 
 #check dummy variable
 unique(tdf$has_cabin_number)

@@ -1,9 +1,9 @@
 library(tidyverse)
 getwd()
-#setwd("C:/Users/craig/Documents/Springboard")
+#setwd("C:\Users\craig\Documents\Springboard\SpringboardMiniProjects\DataWrangling\Data")
 #getwd()
 # 0: Load the data in RStudio
-df_raw <- read_csv("DataWrangling/Data/refine_original.csv")
+df_raw <- read_csv("C:/Users/craig/Documents/Springboard/SpringboardMiniProjects/DataWrangling/Data/refine_original.csv")
 df <- df_raw
 # Get familiar with the data
 str(df)
@@ -48,6 +48,20 @@ df$Category <- lut[df$Product]
 # 4: Add full address for geocoding
 df <- unite(df, "full_address", c(address, city, country), sep = ",")
 
-# 5: Create dummy variables for company and product category
-
-# mutate(df, company_philips = , company_akzo = , company_van_houten = , company_unilever = )
+# 5: Create dummy variables for company and product category (mutate with case_when)
+df <- df %>%
+  mutate(
+    company_philips = case_when(
+      company =="philips" ~ "1",
+      TRUE ~  "0"),
+    company_akzo = case_when(
+      company =="akzo" ~ "1",
+      TRUE ~  "0"),
+    company_van_houten = case_when(
+      company =="van houten" ~ "1",
+      TRUE ~  "0"),
+    company_unilever = case_when(
+      company =="unilever" ~ "1",
+      TRUE ~  "0")
+  )
+# Next convert to markdown document and universal reference for inful file.

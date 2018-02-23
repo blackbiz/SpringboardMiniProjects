@@ -68,9 +68,9 @@ sum(is.na(tdf$cabin))
 which(is.na(tdf$cabin))
 unique(tdf$cabin)
 
-#Create dummy variable using ifelse
+#Create dummy variable using nested mutate~ifelse functions:
 # ifelse(test_expression, x, y)
-# mutate(gradebook, Pass.Fail = ifelse(grade > 60, "Pass", "Fail"))
+# Sample: mutate(gradebook, Pass.Fail = ifelse(grade > 60, "Pass", "Fail"))
 tdf <- tdf %>% 
   mutate(has_cabin_number = ifelse(!is.na(cabin), 0, 1))
 

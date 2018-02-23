@@ -3,7 +3,7 @@ getwd()
 #setwd("C:\Users\craig\Documents\Springboard\SpringboardMiniProjects\DataWrangling\Data")
 #getwd()
 # 0: Load the data in RStudio
-tdf_raw <- read_csv("C:/Users/craig/Documents/Springboard/SpringboardMiniProjects/DataWrangling/Data/titanic_original.csv")
+tdf_raw <- read_csv("/DataWrangling/Data/titanic_original.csv")
 tdf <- tbl_df(tdf_raw)
 # Get familiar with the data
 str(tdf)
@@ -68,11 +68,11 @@ sum(is.na(tdf$cabin))
 which(is.na(tdf$cabin))
 unique(tdf$cabin)
 
-#Create dummy variable
-tdf <- mutate(tdf,
-      has_cabin_number = case_when(
-      !is.na(cabin) ~ 0,
-      TRUE ~  1))
+#Create dummy variable using ifelse
+# ifelse(test_expression, x, y)
+# mutate(gradebook, Pass.Fail = ifelse(grade > 60, "Pass", "Fail"))
+tdf <- tdf %>% 
+  mutate(has_cabin_number = ifelse(!is.na(cabin), 0, 1))
 
 #check dummy variable
 unique(tdf$has_cabin_number)

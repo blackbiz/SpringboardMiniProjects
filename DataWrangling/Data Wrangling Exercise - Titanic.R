@@ -3,7 +3,7 @@ getwd()
 #setwd("C:\Users\craig\Documents\Springboard\SpringboardMiniProjects\DataWrangling\Data")
 #getwd()
 # 0: Load the data in RStudio
-tdf_raw <- read_csv("/DataWrangling/Data/titanic_original.csv")
+tdf_raw <- read_csv("DataWrangling/Data/titanic_original.csv")
 tdf <- tbl_df(tdf_raw)
 # Get familiar with the data
 str(tdf)

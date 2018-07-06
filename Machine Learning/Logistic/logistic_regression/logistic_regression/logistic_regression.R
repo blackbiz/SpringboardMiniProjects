@@ -23,7 +23,9 @@
 ##         health objectives.
 
 ##   Load the National Health Interview Survey data:
-
+setwd("C:/Users/craig/Documents/Springboard/SpringboardMiniProjects/Machine Learning/Logistic/logistic_regression/logistic_regression")
+getwd()
+list.files("dataSets") # files in the dataSets folder
 NH11 <- readRDS("dataSets/NatHealth2011.rds")
 labs <- attributes(NH11)$labels
 
@@ -100,9 +102,30 @@ plot(allEffects(hyp.out))
 
 ##   1. Use glm to conduct a logistic regression to predict ever worked
 ##      (everwrk) using age (age_p) and marital status (r_maritl).
+
+str(NH11$everwrk) # check stucture of everwrk
+levels(NH11$everwrk) # check levels of everwrk
+table(NH11$everwrk, useNA="ifany")
+unique((NH11$r_maritl))
+table(NH11$r_maritl, useNA="ifany")
+
+NH11$everwrk <- factor(NH11$everwrk, levels=c("2 No", "1 Yes"))
+na.omit(NH11$everwrk)
+ever.out <- glm(everwrk~age_p+r_maritl, data=NH11, family="binomial")
+coef(summary(ever.out))
+ever.out.tab <- coef(summary(ever.out))
+ever.out.tab[, "Estimate"] <- exp(coef(ever.out))
+ever.out.tab
+
 ##   2. Predict the probability of working for each level of marital
 ##      status.
+predDat <- with(NH11, expand.grid(age_p, r_maritl))
+# predict hypertension at those levels
+cbind(predDat, predict(ever.out, type = "response", 
+                       se.fit = TRUE, interval="confidence",
+                       newdata = predDat))
+
 
 ##   Note that the data is not perfectly clean and ready to be modeled. You
 ##   will need to clean up at least some of the variables before fitting
-##   the model.
+##   the model.unique(NH11$r_maritl)

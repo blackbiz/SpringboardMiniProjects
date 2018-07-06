@@ -119,7 +119,7 @@ ever.out.tab
 
 ##   2. Predict the probability of working for each level of marital
 ##      status.
-predDat <- with(NH11, expand.grid(age_p, r_maritl))
+predDat <- with(NH11, expand.grid(age_p = mean(age_p), r_maritl = unique(NH11$r_maritl)))
 # predict hypertension at those levels
 cbind(predDat, predict(ever.out, type = "response", 
                        se.fit = TRUE, interval="confidence",
